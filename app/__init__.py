@@ -1,0 +1,1 @@
+from bp_geo import create_app
