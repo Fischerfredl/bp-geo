@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BP-Geo Admin</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='leaflet/leaflet.css') }}" />
+    <script src="{{ url_for('static', filename='leaflet/leaflet.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='jquery-3.2.1.min.js') }}"></script>
+
+    <style>
+        #mapid { height: 300px; }
+    </style>
+</head>
+<body>
+    <h1>BP-Geo Admin</h1>
+    <div id="mapid"></div>
+
+    <button onclick="clear()">Clear</button>
+
+    <script>
+        var mymap = L.map('mapid').setView([0, 0], 2);
+
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox.streets',
+            accessToken: 'pk.eyJ1IjoiZmlzY2hlcmZyZWRsIiwiYSI6ImNqM2NwbmdoOTAwMzAydnMxc29sMGdjYzYifQ.CJ1WD4zM_ArZkXwMuzTytQ'
+        }).addTo(mymap);
+
+        var myLayer = L.geoJSON().addTo(mymap);
+
+    </script>
+
+    <script>
+        function addFeature(x, y) {
+            var f;
+
+            x = x ||Math.random() * 360 - 180;
+            y = y || Math.random() * 140 - 70;
+
+            f = {
+                "geometry": {"type": "Point", "coordinates": [x, y]},
+                "properties": {"hello": "fuck", "yaay": "whoo", "name": "Peter"},
+                "type": "Feature"
+            };
+
+            $.ajax({
+                url: "/arena",
+                type: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(f)
+            });
+        }
+
+        for(var i = 0; i < 50; i++) {
+            addFeature()
+        }
+
+        $.getJSON("/arena", function(data) {
+            console.log(data)
+            myLayer.addData(data)
+        });
+
+        console.log(myLayer);
+
+        function clear() {
+            console.log("test");
+            myLayer.clear();
+        }
+
+
+    </script>
+
+
+</body>
+</html>
