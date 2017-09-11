@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-docker build -t bp-geo .
-# docker push fischerfredl/bp-geo:latest
-# docker stack deploy -c stack.yml bp-geo
+docker build -t fischerfredl/bp-geo:development .
+docker push fischerfredl/bp-geo:development
+docker stack deploy -c stack.yml bp-geo

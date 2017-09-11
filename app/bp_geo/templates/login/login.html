@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BP-Geo Login</title>
+</head>
+<body>
+    <h1>BP-Geo Admin interface</h1>
+
+    {% if admin %}
+        <p>Please login</p>
+    {% else %}
+        <p>There is currently no admin account registered. Please create one.</p>
+    {% endif %}
+
+    <form action="{% if admin %}{{ url_for('login.index') }}{% else %}{{ url_for('login.create') }}{% endif %}" method="post">
+        <label><b>Password: </b></label><input type="password" name="pwd">
+        <input type="submit" value="Submit">
+
+    </form>
+
+</body>
+</html>

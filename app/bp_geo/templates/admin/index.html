@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BP-Geo</title>
+</head>
+<body>
+    <h1>BP-Geo Admin interface</h1>
+    <h2>Dashboard</h2>
+
+    {{ session['logged_in'] }}
+
+    <a href="{{ url_for('login.logout') }}">Logout</a>
+
+</body>
+</html>

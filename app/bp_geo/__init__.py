@@ -2,7 +2,7 @@ import os
 
 from flask import Flask
 from models import db, bcrypt
-from routes import api, admin
+from routes import api, admin, login
 
 
 def init_config(app):
@@ -15,7 +15,9 @@ def init_config(app):
     app.config['MONGODB_PASSWORD'] = os.getenv('MONGODB_PASSWORD')
     return
 
+
 def register_blueprints(app):
+    app.register_blueprint(login)
     app.register_blueprint(api)
     app.register_blueprint(admin)
 
