@@ -30,7 +30,7 @@ services:
 secrets:
   mongodb_admin_password:
     file: instance/mongodb_admin_password
-  mongodb_pusername:
+  mongodb_username:
     file: instance/mongodb_username
   mongodb_password:
     file: instance/mongodb_password
