@@ -8,6 +8,9 @@ services:
     environment:
       MONGODB_HOST: mongo
       MONGODB_DB: bp-geo
+    secrets:
+      - mongodb_username
+      - mongodb_password
     ports:
       - "5010:80"
 
@@ -16,5 +19,18 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
+    secrets:
+      - mongodb_admin_password
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: "/run/secrets/mongodb_admin_password"
     ports:
      - "27017:27017"
+
+secrets:
+  mongodb_admin_password:
+    file: instance/mongodb_admin_password.txt
+  mongodb_pusername:
+    file: instance/mongodb_username.txt
+  mongodb_password:
+    file: instance/mongodb_password.txt
