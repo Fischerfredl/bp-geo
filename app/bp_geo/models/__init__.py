@@ -1,3 +1,4 @@
+from flask import url_for
 from mongoengine import QuerySet
 
 from ext import db, bcrypt
@@ -7,7 +8,7 @@ class FeatureQuerySet(QuerySet):
     """Extends QuerySet by a to_collection method"""
     def to_collection(self):
         data = {
-            'type': 'FeatueCollection',
+            'type': 'FeatureCollection',
             'features': [f.to_feature() for f in self]
         }
         return data
@@ -39,7 +40,8 @@ class Feature(db.Document):
             'type': self.type,
             'geometry': self.geometry,
             'properties': self.properties,
-            'timestamp': str(self.id.generation_time)
+            'timestamp': str(self.id.generation_time),
+            'uri': url_for('api.get_item', collection=self.slug, item_id=self.id, _external=True)
         }
         return data
 
@@ -49,11 +51,11 @@ class Feature(db.Document):
 
 
 class Arena(Feature):
-    confirmed = db.BooleanField(default=False)
+    slug = 'arenas'
 
 
 class Match(Feature):
-    active = db.BooleanField(default=True)
+    slug = 'matches'
 
 
 class Admin(db.Document):
