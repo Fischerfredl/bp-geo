@@ -29,8 +29,8 @@ services:
 
 secrets:
   mongodb_admin_password:
-    file: instance/mongodb_admin_password.txt
+    file: instance/mongodb_admin_password
   mongodb_pusername:
-    file: instance/mongodb_username.txt
+    file: instance/mongodb_username
   mongodb_password:
-    file: instance/mongodb_password.txt
+    file: instance/mongodb_password
